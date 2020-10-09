@@ -1,0 +1,6 @@
+framework module Pods_MovieMate_MovieMateUITests {
+  umbrella header "Pods-MovieMate-MovieMateUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
