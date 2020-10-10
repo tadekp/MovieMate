@@ -11,12 +11,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class ImageLoader;
+
 @interface ItemCell : UITableViewCell
 
-@property (nonatomic, retain, nonnull) id<Item> item;
-@property (nonatomic) BOOL hasFavoriteMark;
-
 + (NSString *)identifier;
+
+- (void)setupFor:(id<Item>)item havingFavoriteMark:(BOOL)hasFavoriteMark withImageLoader:(ImageLoader *)imageLoader;
 
 @end
 

@@ -41,6 +41,15 @@
     }];
 }
 
+- (void)loadMovieDetailsFor:(NSInteger)movieIdentifier result:(MovieDetailsResult)result {
+    [self.backend requestMovieDetailsOf:movieIdentifier
+                                 result:
+     ^(const MovieDetails * _Nullable movieDetails, NSString * _Nullable errorMessage) {
+        self->_errorMessage = errorMessage;
+        result(movieDetails, errorMessage);
+    }];
+}
+
 - (id<Items> _Nonnull)createEmpty {
     return [Movies createEmpty];
 }

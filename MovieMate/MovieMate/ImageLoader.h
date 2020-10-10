@@ -12,9 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageLoader : NSObject
-
-- (instancetype _Nonnull)initWith:(NSURLSessionConfiguration *)configuration;
-- (void)loadImageFromPath:(NSString * const)path result:(ImageResult _Nonnull)result;
+ 
+- (void)loadImageFromPath:(NSString *const)path forView:(UIImageView *)imageView;
 
 @end
 

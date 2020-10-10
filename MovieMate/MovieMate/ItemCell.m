@@ -9,8 +9,11 @@
 #import "ItemCell.h"
 #import "TextProvider.h"
 #import "FavoritesManager.h"
+#import "ImageLoader.h"
 
 static NSString *_identifier = @"item-cell";
+static UIImage *_starON = nil;
+static UIImage *_starOFF = nil;
 
 @interface ItemCell ()
 
@@ -21,12 +24,13 @@ static NSString *_identifier = @"item-cell";
 @property (weak, nonatomic) IBOutlet UILabel *rightInfoLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *starImageWidth;
 
+@property (nonatomic, retain, nonnull, readonly) id<Item> item;
+
 @end
 
 @implementation ItemCell
 
 @synthesize item = _item;
-@synthesize hasFavoriteMark = _hasFavoriteMark;
 
 + (NSString *)identifier {
     return _identifier;
@@ -34,7 +38,7 @@ static NSString *_identifier = @"item-cell";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    // Initialization
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -42,20 +46,36 @@ static NSString *_identifier = @"item-cell";
     // Configure the view for the selected state
 }
 
-- (void)setItem:(id<Item>)item {
+- (void)setupFor:(id<Item>)item havingFavoriteMark:(BOOL)hasFavoriteMark withImageLoader:(ImageLoader *)imageLoader {
+    [[self starImageWidth] setConstant:hasFavoriteMark ? 50 : 0];
     _item = item;
     [[self titleLabel] setText:[item title]];
     [[self leftInfoLabel] setText:[[TextProvider shared] releaseInfoFrom:[item releaseDate]]];
     [[self rightInfoLabel] setText:[NSString stringWithFormat:@"%.01f", [[item voteAverage] doubleValue]]];
-    if ([self hasFavoriteMark]) {
-        [[self starImageView] setHighlighted:[[FavoritesManager shared] isFavorite:[item identifier]]];
+    if (hasFavoriteMark) {
+        BOOL isFavorite = [[FavoritesManager shared] isFavorite:[item identifier]];
+        [[self starImageView] setImage:(isFavorite ? [self starON] : [self starOFF])];
     }
-    // TODO: fill remaining properties
+    [imageLoader loadImageFromPath:[item imagePath] forView:[self ItemImageView]];
 }
 
-- (void)setHasFavoriteMark:(BOOL)hasFavoriteMark {
-    _hasFavoriteMark = hasFavoriteMark;
-    [[self starImageWidth] setConstant:hasFavoriteMark ? 44 : 0];
+- (UIImage *)starON {
+    if (_starON == nil) {
+        _starON = [self makeStarImageForFavorite:YES];
+    }
+    return _starON;
+}
+
+- (UIImage *)starOFF {
+    if (_starOFF == nil) {
+        _starOFF = [self makeStarImageForFavorite:NO];
+    }
+    return _starOFF;
+}
+
+- (UIImage *)makeStarImageForFavorite:(BOOL)favorite {
+    NSString *name = favorite ? @"small-star-on" : @"small-star-off";
+    return [UIImage imageNamed:name];
 }
 
 @end

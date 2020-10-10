@@ -21,8 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSInteger totalResults;
 @property (nonatomic, strong, readonly) NSArray<Movie *> *items;
 
-- (instancetype) initWith:(NSDictionary * _Nonnull)dictionary andImageLoader:(nonnull ImageLoader *)loader;
+- (instancetype) initWith:(NSDictionary * _Nonnull)dictionary;
 
 @end
+
+typedef void (^MoviesResult)(Movies const* _Nullable, NSString * _Nullable);
 
 NS_ASSUME_NONNULL_END

@@ -7,13 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import "Types.h"
 #import "Item.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class ImageLoader;
 
 @interface Movie : NSObject <Item>
 
@@ -31,14 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSInteger voteCount;
 @property (nonatomic, strong, readonly) NSString *overview;
 
-@property (nonatomic, strong, readonly) UIImage const *posterImage;
-@property (nonatomic, strong, readonly) UIImage const *backdropImage;
-@property (nonatomic, weak, readonly) ImageLoader *imageLoader;
-
-- (instancetype)initWith:(NSDictionary * _Nonnull)dictionary andImageLoader:(ImageLoader *)loader;
-
-- (void)loadPosterImage:(Completed _Nonnull)completed;
-- (void)loadBackdropImage:(Completed _Nonnull)completed;
+- (instancetype)initWith:(NSDictionary * _Nonnull)dictionary;
 
 @end
 

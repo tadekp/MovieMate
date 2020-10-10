@@ -10,8 +10,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "NSDictionary+Utils.h"
 #import "Backend.h"
-#import "ImageLoader.h"
 #import "Movies.h"
+#import "MovieDetails.h"
 
 static NSString * const baseURLString = @"https://api.themoviedb.org/3/movie/";
 static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
@@ -34,7 +34,6 @@ static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     self.manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:configuration];
     self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    self.imageLoader = [[ImageLoader alloc] initWith:configuration];
     return self;
 }
 
@@ -55,7 +54,7 @@ static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
             NSString const *errorMessage;
             NSDictionary *dictionary = [NSDictionary dictionaryFrom:responseObject];
             if (dictionary != nil) {
-                movies = [[Movies alloc] initWith:dictionary andImageLoader:[self imageLoader]];
+                movies = [[Movies alloc] initWith:dictionary];
                 errorMessage = nil;
             } else {
                 movies = nil;
@@ -74,6 +73,9 @@ static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
     });
 }
 
+- (void)requestMovieDetailsOf:(NSInteger)movieIdentifier result:(MovieDetailsResult)result {
+}
+
 #pragma mark - Private helpers
 
 - (NSURL * const)nowPlayingURLForPage:(int)page {
@@ -86,12 +88,3 @@ static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
 }
 
 @end
-
-/*
- NSURLRequest *request = [[NSURLRequest alloc]initWithURL:[NSURL URLWithString:"YOUR URL OF IMAGE HERE"];
-     ["YOUR IMAGEVIEW" setImageWithURLRequest:request placeholderImage:"YOUR PLACEHOLDER IMAGE" success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-         "YOUR IMAGEVIEW".image = image;
-     } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-         NSLog(@"%@",error);
-     }];
- */

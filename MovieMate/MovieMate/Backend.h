@@ -10,15 +10,17 @@
 #define Backend_h
 
 #import "Types.h"
+#import "Movies.h"
+#import "MovieDetails.h"
 
 @class Movies;
-
-typedef void (^MoviesResult)(Movies const* _Nullable, NSString * _Nullable);
+@class MovieDetails;
 
 @interface Backend : NSObject
 
 - (instancetype _Nonnull)init;
 - (void)requestNowPlayingMoviesForPage:(int)page result:(MoviesResult _Nonnull)result;
+- (void)requestMovieDetailsOf:(NSInteger)movieIdentifier result:(MovieDetailsResult _Nonnull)result;
 
 @end
 

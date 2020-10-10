@@ -21,9 +21,11 @@
 		9929B8B425304C9D0036511C /* ImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9929B8B325304C9D0036511C /* ImageLoader.m */; };
 		992A21C22531BAAA00B4897D /* MoviesProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21C12531BAAA00B4897D /* MoviesProvider.m */; };
 		992A21CC2531D07E00B4897D /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21CA2531D07E00B4897D /* ItemCell.m */; };
-		992A21CD2531D07E00B4897D /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 992A21CB2531D07E00B4897D /* ItemCell.xib */; };
 		992A21D32531EADD00B4897D /* NSDateFormatter+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21D22531EADD00B4897D /* NSDateFormatter+Common.m */; };
 		992A21D92531F2FD00B4897D /* FavoritesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21D82531F2FD00B4897D /* FavoritesManager.m */; };
+		992A21DF2531F9A900B4897D /* FavoritesProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21DE2531F9A900B4897D /* FavoritesProvider.m */; };
+		992A21E525320F0F00B4897D /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21E425320F0F00B4897D /* MovieDetailsViewController.m */; };
+		992A21EE253228F000B4897D /* MovieDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21ED253228F000B4897D /* MovieDetails.m */; };
 		99375830252EFBCF000C98BB /* MoviesPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9937582F252EFBCF000C98BB /* MoviesPaginator.m */; };
 		996ACFD225319EBF006F79DF /* MoviesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 996ACFD125319EBF006F79DF /* MoviesViewController.m */; };
 		996ACFE62531A2BF006F79DF /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 996ACFE52531A2BF006F79DF /* FavoritesViewController.m */; };
@@ -82,11 +84,16 @@
 		992A21C12531BAAA00B4897D /* MoviesProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviesProvider.m; sourceTree = "<group>"; };
 		992A21C92531D07E00B4897D /* ItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
 		992A21CA2531D07E00B4897D /* ItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
-		992A21CB2531D07E00B4897D /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		992A21D12531EADD00B4897D /* NSDateFormatter+Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Common.h"; sourceTree = "<group>"; };
 		992A21D22531EADD00B4897D /* NSDateFormatter+Common.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Common.m"; sourceTree = "<group>"; };
 		992A21D72531F2FD00B4897D /* FavoritesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesManager.h; sourceTree = "<group>"; };
 		992A21D82531F2FD00B4897D /* FavoritesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesManager.m; sourceTree = "<group>"; };
+		992A21DD2531F9A900B4897D /* FavoritesProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoritesProvider.h; sourceTree = "<group>"; };
+		992A21DE2531F9A900B4897D /* FavoritesProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FavoritesProvider.m; sourceTree = "<group>"; };
+		992A21E325320F0F00B4897D /* MovieDetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetailsViewController.h; sourceTree = "<group>"; };
+		992A21E425320F0F00B4897D /* MovieDetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetailsViewController.m; sourceTree = "<group>"; };
+		992A21EC253228F000B4897D /* MovieDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDetails.h; sourceTree = "<group>"; };
+		992A21ED253228F000B4897D /* MovieDetails.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDetails.m; sourceTree = "<group>"; };
 		9937582E252EFBCF000C98BB /* MoviesPaginator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviesPaginator.h; sourceTree = "<group>"; };
 		9937582F252EFBCF000C98BB /* MoviesPaginator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviesPaginator.m; sourceTree = "<group>"; };
 		99375844252F3E5C000C98BB /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
@@ -220,7 +227,8 @@
 				996AD0072531A9A4006F79DF /* ItemsViewController.m */,
 				992A21C92531D07E00B4897D /* ItemCell.h */,
 				992A21CA2531D07E00B4897D /* ItemCell.m */,
-				992A21CB2531D07E00B4897D /* ItemCell.xib */,
+				9929B8B225304C9D0036511C /* ImageLoader.h */,
+				9929B8B325304C9D0036511C /* ImageLoader.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -243,14 +251,14 @@
 			children = (
 				99C0671B252E541E0073ECA9 /* Movie.h */,
 				99C0671C252E541E0073ECA9 /* Movie.m */,
+				992A21EC253228F000B4897D /* MovieDetails.h */,
+				992A21ED253228F000B4897D /* MovieDetails.m */,
 				99C06721252E54B80073ECA9 /* Movies.h */,
 				99C06722252E54B80073ECA9 /* Movies.m */,
 				992A21C02531BAAA00B4897D /* MoviesProvider.h */,
 				992A21C12531BAAA00B4897D /* MoviesProvider.m */,
 				99C06717252E4B0C0073ECA9 /* Backend.h */,
 				99C06712252E4AF60073ECA9 /* Backend.m */,
-				9929B8B225304C9D0036511C /* ImageLoader.h */,
-				9929B8B325304C9D0036511C /* ImageLoader.m */,
 			);
 			name = Movies;
 			sourceTree = "<group>";
@@ -260,6 +268,8 @@
 			children = (
 				992A21D72531F2FD00B4897D /* FavoritesManager.h */,
 				992A21D82531F2FD00B4897D /* FavoritesManager.m */,
+				992A21DD2531F9A900B4897D /* FavoritesProvider.h */,
+				992A21DE2531F9A900B4897D /* FavoritesProvider.m */,
 			);
 			name = Favorites;
 			sourceTree = "<group>";
@@ -271,6 +281,8 @@
 				996ACFD125319EBF006F79DF /* MoviesViewController.m */,
 				9937582E252EFBCF000C98BB /* MoviesPaginator.h */,
 				9937582F252EFBCF000C98BB /* MoviesPaginator.m */,
+				992A21E325320F0F00B4897D /* MovieDetailsViewController.h */,
+				992A21E425320F0F00B4897D /* MovieDetailsViewController.m */,
 			);
 			name = Movies;
 			sourceTree = "<group>";
@@ -428,7 +440,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				992A21CD2531D07E00B4897D /* ItemCell.xib in Resources */,
 				991214E8252CBC8F006F6271 /* LaunchScreen.storyboard in Resources */,
 				991214E5252CBC8F006F6271 /* Assets.xcassets in Resources */,
 				991214E0252CBC8C006F6271 /* Main.storyboard in Resources */,
@@ -559,12 +570,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				992A21E525320F0F00B4897D /* MovieDetailsViewController.m in Sources */,
 				99B82EDF252FA5D500119B4C /* NSDictionary+Utils.m in Sources */,
 				991214D4252CBC8C006F6271 /* AppDelegate.m in Sources */,
 				99375830252EFBCF000C98BB /* MoviesPaginator.m in Sources */,
 				992A21C22531BAAA00B4897D /* MoviesProvider.m in Sources */,
 				992A21CC2531D07E00B4897D /* ItemCell.m in Sources */,
 				992A21D92531F2FD00B4897D /* FavoritesManager.m in Sources */,
+				992A21EE253228F000B4897D /* MovieDetails.m in Sources */,
 				99C0671D252E541E0073ECA9 /* Movie.m in Sources */,
 				9929B8AB25304B880036511C /* NSArray+Utils.m in Sources */,
 				9929B8B425304C9D0036511C /* ImageLoader.m in Sources */,
@@ -577,6 +590,7 @@
 				99C06723252E54B80073ECA9 /* Movies.m in Sources */,
 				996ACFD225319EBF006F79DF /* MoviesViewController.m in Sources */,
 				991214EB252CBC8F006F6271 /* main.m in Sources */,
+				992A21DF2531F9A900B4897D /* FavoritesProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

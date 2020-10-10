@@ -7,6 +7,7 @@
 //
 
 #import "MoviesViewController.h"
+#import "MovieDetailsViewController.h"
 #import "MoviesProvider.h"
 #import "Types.h"
 #import "Movies.h"
@@ -14,7 +15,7 @@
 
 @interface MoviesViewController ()
 
-@property (nonatomic, retain, readonly) id<ItemsProvider> itemsProvider;
+@property (nonatomic, retain, readonly) MoviesProvider *itemsProvider;
 @property (nonatomic) int totalPages;
 
 @end
@@ -26,19 +27,6 @@
 - (void)viewDidLoad {
     _itemsProvider = [[MoviesProvider alloc] init];
     [super viewDidLoad];
-    
-//    self.backend = [[Backend alloc] init];
-//    [self.backend requestNowPlayingMoviesForPage:1 result:^(const Movies * _Nullable movies, const NSString * _Nullable errorMessage) {
-//        Movie *movie = [[movies items] objectAtIndex:0];
-////        [movie loadPosterImage:^(BOOL successfully, const NSString * _Nullable errorMessage) {
-////            NSLog(@"A kuku");
-////        }];
-//
-//        if (movies != nil) {
-//            NSLog(@"Movies loaded");
-//        } else {
-//        }
-//    }];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -46,18 +34,6 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
-
-/*
-#pragma mark - Table view data source
-
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -93,14 +69,12 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    MovieDetailsViewController *detailsViewController = (MovieDetailsViewController *)[segue destinationViewController];
+    [detailsViewController initializeBy:kMovie forMovie:[[self selectedItem] identifier] withProvider:[self itemsProvider]];
 }
-*/
 
 @end

@@ -24,9 +24,9 @@
     return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
 }
 
-- (NSString *)titleFor:(ItemType)item {
+- (NSString *)titleFor:(ItemType)itemType {
     NSString *subtitle;
-    switch (item) {
+    switch (itemType) {
     case kMovie:
         subtitle = @"Now playing movies";
         break;
@@ -37,8 +37,21 @@
     return [NSString stringWithFormat:@"%1$@ - %2$@", [self appTitle], subtitle];
 }
 
+- (NSString *)shortTitleFor:(ItemType)itemType {
+    switch (itemType) {
+    case kMovie:
+        return @"Movies";
+    case kFavorite:
+        return @"Favorites";
+    }
+}
+
 - (NSString *)releaseInfoFrom:(NSDate * _Nonnull)date {
     return [NSString stringWithFormat:@"Released: %@", [[NSDateFormatter common] stringFromDate:date]];
+}
+
+- (NSString *)detailsTitle {
+    return @"Movie Details";
 }
 
 @end

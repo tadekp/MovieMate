@@ -9,18 +9,24 @@
 #import "ItemsViewController.h"
 #import "TextProvider.h"
 #import "ItemCell.h"
+#import "ImageLoader.h"
 
 @interface ItemsViewController ()
+
+@property (nonatomic, nonnull, strong) ImageLoader *imageLoader;
+
 @end
 
 @implementation ItemsViewController
 
 @synthesize currentItems;
+@synthesize selectedItem;
+@synthesize imageLoader;
 
 - (void)viewDidLoad {
     self.currentItems = [[self itemsProvider] createEmpty];
     [super viewDidLoad];
-    //[[self tableView] registerClass:[ItemCell class] forCellReuseIdentifier:[ItemCell identifier]];
+    self.imageLoader = [[ImageLoader alloc] init];
     self.navigationItem.title = [[TextProvider shared] titleFor:[self itemType]];
     [[self itemsProvider] loadItemsForPage:0 result:^(id<Items> _Nullable const loadedItems) {
         self->currentItems = loadedItems;
@@ -49,17 +55,17 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    return 60;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //ItemCell *cell = (ItemCell *)[tableView dequeueReusableCellWithIdentifier:[ItemCell identifier] forIndexPath:indexPath];
-    //if ([cell item] == nil) {
-    ItemCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"ItemCell" owner:self options:nil] objectAtIndex:0];
-    //}
-    [cell setHasFavoriteMark:[self itemType] != kFavorite];
-    [cell setItem:[self itemFor:indexPath]];
+    ItemCell *cell = (ItemCell *)[tableView dequeueReusableCellWithIdentifier:[ItemCell identifier] forIndexPath:indexPath];
+    [cell setupFor:[self itemFor:indexPath] havingFavoriteMark:[self itemType] != kFavorite withImageLoader:[self imageLoader]];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self setSelectedItem:[self itemFor:indexPath]];
 }
 
 - (id<Item>)itemFor:(NSIndexPath *)indexPath {

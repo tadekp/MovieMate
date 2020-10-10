@@ -1,5 +1,5 @@
 //
-//  MoviesProvider.h
+//  FavoritesProvider.h
 //  MovieMate
 //
 //  Created by Tadeusz Purtak on 10/10/2020.
@@ -8,15 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "ItemsProvider.h"
-#import "MovieDetails.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MoviesProvider : NSObject <ItemsProvider>
+@interface FavoritesProvider : NSObject <ItemsProvider>
 
 - (instancetype)init;
-
-- (void)loadMovieDetailsFor:(NSInteger)movieIdentifier result:(MovieDetailsResult _Nonnull)result;
 
 @end
 

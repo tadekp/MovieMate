@@ -18,7 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)shared;
 
 - (NSString *)titleFor:(ItemType)itemType;
+- (NSString *)shortTitleFor:(ItemType)itemType;
 - (NSString *)releaseInfoFrom:(NSDate * _Nonnull)date;
+- (NSString *)detailsTitle;
 
 @end
 
