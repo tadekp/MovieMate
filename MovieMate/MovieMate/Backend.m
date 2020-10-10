@@ -21,7 +21,6 @@ static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
 @interface Backend ()
 
 @property (nonatomic, retain) AFHTTPSessionManager * _Nonnull manager;
-@property (nonatomic, strong) ImageLoader * _Nonnull imageLoader;
 
 @end
 

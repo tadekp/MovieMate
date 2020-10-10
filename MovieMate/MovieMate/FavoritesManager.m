@@ -7,6 +7,7 @@
 //
 
 #import "FavoritesManager.h"
+#import "Favorite.h"
 
 @interface FavoritesManager ()
 
@@ -25,23 +26,81 @@
     return sharedInstance;
 }
 
-- (BOOL)isFavorite:(NSInteger)itemIdentifier {
-    return [[self identifiers] containsObject:[NSNumber numberWithInteger:itemIdentifier]];
+- (BOOL)isFavorite:(id<Item>)item {
+    return [[self identifiers] containsObject:[NSNumber numberWithInteger:[item identifier]]];
 }
 
-- (void)setFavorite:(NSInteger)itemIdentifier favorite:(BOOL)yes {
-    NSNumber *number = [NSNumber numberWithInteger:itemIdentifier];
+- (void)setFavorite:(id<Item>)item favorite:(BOOL)yes {
+    NSNumber *number = [NSNumber numberWithInteger:[item identifier]];
     if (yes) {
-        [[self identifiers] addObject:number];
+        if (![self isFavorite:item]) {
+            [[self identifiers] addObject:number];
+            NSManagedObjectContext *context = [[self persistentContainer] viewContext];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"FavoriteItem" inManagedObjectContext:context];
+            //Favorite *newFavorite = [[Favorite alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+            Favorite *newFavorite = (Favorite *) [NSEntityDescription insertNewObjectForEntityForName:@"FavoriteItem" inManagedObjectContext:context];
+            [newFavorite setFTitle:@"aaa"];
+            [newFavorite fillWithItem:item];
+            //NSEntityDescription *entity = [NSEntityDescription insertNewObjectForEntityForName:@"FavoriteItem" inManagedObjectContext:context];
+            //[entity setManagedObjectClassName:];
+            NSError *error;
+            [context save:&error];
+            NSLog([error localizedDescription]);
+        }
     } else {
-        if ([self isFavorite:itemIdentifier]) {
+        if ([self isFavorite:item]) {
             [[self identifiers] removeObject:number];
         }
     }
 }
 
-- (void)toggle:(NSInteger)itemIdentifier {
-    [self setFavorite:itemIdentifier favorite:![self isFavorite:itemIdentifier]];
+- (void)toggle:(id<Item>)item {
+    [self setFavorite:item favorite:![self isFavorite:item]];
+}
+
+#pragma mark - Core Data stack
+
+@synthesize persistentContainer = _persistentContainer;
+
+- (NSPersistentContainer *)persistentContainer {
+    // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
+    @synchronized (self) {
+        if (_persistentContainer == nil) {
+            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"MovieMate"];
+            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
+                if (error != nil) {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    
+                    /*
+                     Typical reasons for an error here include:
+                     * The parent directory does not exist, cannot be created, or disallows writing.
+                     * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                     * The device is out of space.
+                     * The store could not be migrated to the current model version.
+                     Check the error message to determine what the actual problem was.
+                    */
+                    NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+                    abort();
+                }
+            }];
+        }
+    }
+    
+    return _persistentContainer;
+}
+
+#pragma mark - Core Data Saving support
+
+- (void)saveContext {
+    NSManagedObjectContext *context = self.persistentContainer.viewContext;
+    NSError *error = nil;
+    if ([context hasChanges] && ![context save:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+        abort();
+    }
 }
 
 @end

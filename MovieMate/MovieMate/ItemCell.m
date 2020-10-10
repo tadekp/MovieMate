@@ -53,10 +53,22 @@ static UIImage *_starOFF = nil;
     [[self leftInfoLabel] setText:[[TextProvider shared] releaseInfoFrom:[item releaseDate]]];
     [[self rightInfoLabel] setText:[NSString stringWithFormat:@"%.01f", [[item voteAverage] doubleValue]]];
     if (hasFavoriteMark) {
-        BOOL isFavorite = [[FavoritesManager shared] isFavorite:[item identifier]];
+        BOOL isFavorite = [[FavoritesManager shared] isFavorite:item];
         [[self starImageView] setImage:(isFavorite ? [self starON] : [self starOFF])];
+        [self makeStarTappable];
     }
     [imageLoader loadImageFromPath:[item imagePath] forView:[self ItemImageView]];
+}
+
+- (void)makeStarTappable {
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapDetected)];
+    singleTap.numberOfTapsRequired = 1;
+    [[self starImageView] setUserInteractionEnabled:YES];
+    [[self starImageView] addGestureRecognizer:singleTap];
+}
+
+- (void)tapDetected {
+    [[FavoritesManager shared] toggle:[self item]];
 }
 
 - (UIImage *)starON {

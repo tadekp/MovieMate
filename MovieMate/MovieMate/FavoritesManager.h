@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
+#import "Item.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -14,13 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FavoritesManager : NSObject
 
+@property (readonly, strong) NSPersistentContainer *persistentContainer;
 @property (nonatomic, strong, readonly) FavoritesProvider *provider;
 
 + (instancetype)shared;
 
-- (BOOL)isFavorite:(NSInteger)itemIdentifier;
-- (void)setFavorite:(NSInteger)itemIdentifier favorite:(BOOL)yes;
-- (void)toggle:(NSInteger)itemIdentifier;
+- (BOOL)isFavorite:(id<Item>)item;
+- (void)setFavorite:(id<Item>)item favorite:(BOOL)yes;
+- (void)toggle:(id<Item>)item;
 
 @end
 

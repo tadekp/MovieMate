@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="Favorite" representedClassName="Favorite" syncable="YES" codeGenerationType="class">
-        <attribute name="identifier" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" spotlightIndexingEnabled="YES"/>
-        <attribute name="imagePath" attributeType="String"/>
-        <attribute name="releaseDate" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="title" attributeType="String"/>
-        <attribute name="voteAverage" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    <entity name="FavoriteItem" representedClassName="FavoriteItem" syncable="YES" codeGenerationType="class">
+        <attribute name="fIdentifier" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" spotlightIndexingEnabled="YES"/>
+        <attribute name="fImagePath" attributeType="String"/>
+        <attribute name="fReleaseDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fTitle" attributeType="String"/>
+        <attribute name="fVoteAverage" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="Favorite" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="FavoriteItem" positionX="-63" positionY="-18" width="128" height="118"/>
     </elements>
 </model>

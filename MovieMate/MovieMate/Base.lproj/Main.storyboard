@@ -31,7 +31,7 @@
                                                 <constraint firstAttribute="width" secondItem="nSe-sh-w5E" secondAttribute="height" multiplier="1:1" id="zh9-1i-6BJ"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yO-ip-9Ef">
+                                        <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yO-ip-9Ef">
                                             <rect key="frame" x="370" y="0.0" width="44" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="44" id="eek-7J-WwM"/>
