@@ -16,6 +16,7 @@
 @synthesize title = _title;
 @synthesize releaseDate = _releaseDate;
 @synthesize voteAverage = _voteAverage;
+@synthesize imagePath = _imagePath;
 @synthesize voteCount = _voteCount;
 @synthesize overview = _overview;
 @synthesize posterPath = _posterPath;
@@ -35,7 +36,12 @@
     _overview = [dictionary stringForKey:@"overview"];
     _posterPath = [dictionary stringForKey:@"poster_path"];
     _backdropPath = [dictionary stringForKey:@"backdrop_path"];
+    _imagePath = _posterPath;
     return self;
+}
+
+- (ItemType)itemType {
+    return kMovie;
 }
 
 - (void)loadPosterImage:(Completed)completed {

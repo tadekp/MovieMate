@@ -9,7 +9,11 @@
 #ifndef Backend_h
 #define Backend_h
 
-#import "CommonTypes.h"
+#import "Types.h"
+
+@class Movies;
+
+typedef void (^MoviesResult)(Movies const* _Nullable, NSString * _Nullable);
 
 @interface Backend : NSObject
 

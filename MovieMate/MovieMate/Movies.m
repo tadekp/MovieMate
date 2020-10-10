@@ -35,4 +35,31 @@
     return self;
 }
 
++ (id<Items> _Nonnull)createEmpty {
+    return [[Movies alloc] initEmpty];
+}
+
+- (NSInteger)count {
+    return [[self items] count];
+}
+
+- (id<Item> _Nullable)itemAt:(NSInteger)index {
+    if (0 <= index && index < [[self items] count]) {
+        return [[self items] objectAtIndex:index];
+    } else {
+        return nil;
+    }
+}
+
+#pragma mark - Private initializer
+
+- (instancetype)initEmpty {
+    self = [super init];
+    _page = 0;
+    _totalPages = 1;
+    _totalResults = 0;
+    _items = @[];
+    return self;
+}
+
 @end

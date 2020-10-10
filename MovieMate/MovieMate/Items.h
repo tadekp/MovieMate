@@ -1,27 +1,29 @@
 //
-//  Movies.h
+//  Items.h
 //  MovieMate
 //
-//  Created by Tadeusz Purtak on 07/10/2020.
+//  Created by Tadeusz Purtak on 10/10/2020.
 //  Copyright © 2020 Litterae. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "Items.h"
-#import "Movie.h"
+#import "Item.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class ImageLoader;
+@protocol Items <NSObject>
 
-@interface Movies : NSObject <Items>
+@required
 
 @property (nonatomic, readonly) NSInteger page;
 @property (nonatomic, readonly) NSInteger totalPages;
 @property (nonatomic, readonly) NSInteger totalResults;
-@property (nonatomic, strong, readonly) NSArray<Movie *> *items;
+@property (nonatomic, strong, readonly) NSArray<id<Item>> *items;
 
-- (instancetype) initWith:(NSDictionary * _Nonnull)dictionary andImageLoader:(nonnull ImageLoader *)loader;
++ (id<Items> _Nonnull)createEmpty;
+
+- (NSInteger)count;
+- (id<Item> _Nullable)itemAt:(NSInteger)index;
 
 @end
 

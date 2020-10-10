@@ -1,44 +1,31 @@
 //
-//  MoviesViewController.m
+//  ItemsViewController.m
 //  MovieMate
 //
 //  Created by Tadeusz Purtak on 10/10/2020.
 //  Copyright © 2020 Litterae. All rights reserved.
 //
 
-#import "MoviesViewController.h"
-#import "MoviesProvider.h"
-#import "Types.h"
-#import "Movies.h"
-#import "Movie.h"
+#import "ItemsViewController.h"
+#import "TextProvider.h"
+#import "ItemCell.h"
 
-@interface MoviesViewController ()
-
-@property (nonatomic, retain, readonly) id<ItemsProvider> itemsProvider;
-@property (nonatomic) int totalPages;
-
+@interface ItemsViewController ()
 @end
 
-@implementation MoviesViewController
+@implementation ItemsViewController
 
-@synthesize itemsProvider = _itemsProvider;
+@synthesize currentItems;
 
 - (void)viewDidLoad {
-    _itemsProvider = [[MoviesProvider alloc] init];
+    self.currentItems = [[self itemsProvider] createEmpty];
     [super viewDidLoad];
-    
-//    self.backend = [[Backend alloc] init];
-//    [self.backend requestNowPlayingMoviesForPage:1 result:^(const Movies * _Nullable movies, const NSString * _Nullable errorMessage) {
-//        Movie *movie = [[movies items] objectAtIndex:0];
-////        [movie loadPosterImage:^(BOOL successfully, const NSString * _Nullable errorMessage) {
-////            NSLog(@"A kuku");
-////        }];
-//
-//        if (movies != nil) {
-//            NSLog(@"Movies loaded");
-//        } else {
-//        }
-//    }];
+    //[[self tableView] registerClass:[ItemCell class] forCellReuseIdentifier:[ItemCell identifier]];
+    self.navigationItem.title = [[TextProvider shared] titleFor:[self itemType]];
+    [[self itemsProvider] loadItemsForPage:0 result:^(id<Items> _Nullable const loadedItems) {
+        self->currentItems = loadedItems;
+        [[self tableView] reloadData];
+    }];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -47,17 +34,37 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-/*
+- (ItemType)itemType {
+    return [[self itemsProvider] itemType];
+}
+
 #pragma mark - Table view data source
 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [[self currentItems] count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //ItemCell *cell = (ItemCell *)[tableView dequeueReusableCellWithIdentifier:[ItemCell identifier] forIndexPath:indexPath];
+    //if ([cell item] == nil) {
+    ItemCell *cell = [[[NSBundle mainBundle] loadNibNamed:@"ItemCell" owner:self options:nil] objectAtIndex:0];
+    //}
+    [cell setHasFavoriteMark:[self itemType] != kFavorite];
+    [cell setItem:[self itemFor:indexPath]];
     return cell;
 }
-*/
+
+- (id<Item>)itemFor:(NSIndexPath *)indexPath {
+    return [[self currentItems] itemAt:[indexPath row]];
+}
 
 /*
 // Override to support conditional editing of the table view.

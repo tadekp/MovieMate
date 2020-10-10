@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSDictionary (Utils)
 
 - (NSString *)stringForKey:(NSString *)key;
-- (NSDate *)dateForKey:(NSString *)key formattedAs:(NSString *)format;
 - (NSDate *)dateForKey:(NSString *)key;
 
 + (NSDictionary * _Nullable)dictionaryFrom:(id _Nullable)object;

@@ -1,16 +1,19 @@
 //
-//  FavoritesViewController.h
+//  MoviesProvider.h
 //  MovieMate
 //
 //  Created by Tadeusz Purtak on 10/10/2020.
 //  Copyright © 2020 Litterae. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "ItemsProvider.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FavoritesViewController : UITableViewController
+@interface MoviesProvider : NSObject <ItemsProvider>
+
+- (instancetype)init;
 
 @end
 

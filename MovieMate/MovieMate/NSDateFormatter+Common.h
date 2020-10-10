@@ -1,16 +1,18 @@
 //
-//  FavoritesViewController.h
+//  NSDateFormatter+Common.h
 //  MovieMate
 //
 //  Created by Tadeusz Purtak on 10/10/2020.
 //  Copyright © 2020 Litterae. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FavoritesViewController : UITableViewController
+@interface NSDateFormatter (Common)
+
++ (NSDateFormatter *)common;
 
 @end
 
