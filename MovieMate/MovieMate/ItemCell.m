@@ -24,8 +24,6 @@ static UIImage *_starOFF = nil;
 @property (weak, nonatomic) IBOutlet UILabel *rightInfoLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *starImageWidth;
 
-@property (nonatomic, retain, nonnull, readonly) id<Item> item;
-
 @end
 
 @implementation ItemCell

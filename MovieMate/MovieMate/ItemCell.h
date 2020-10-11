@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)identifier;
 
+@property (nonatomic, retain, nonnull, readonly) id<Item> item;
+
 - (void)setupFor:(id<Item>)item havingFavoriteMark:(BOOL)hasFavoriteMark withImageLoader:(ImageLoader *)imageLoader;
 
 @end

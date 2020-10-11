@@ -7,9 +7,16 @@
 //
 
 #import "MovieDetails.h"
+#import "NSDictionary+Utils.h"
 
 @implementation MovieDetails
 
 @synthesize homepage = _homepage;
+
+- (instancetype)initWith:(NSDictionary *)dictionary {
+    self = [super initWith:dictionary];
+    _homepage = [dictionary stringForKey:@"homepage"];
+    return self;
+}
 
 @end

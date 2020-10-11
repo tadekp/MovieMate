@@ -20,7 +20,6 @@
 @implementation ItemsViewController
 
 @synthesize currentItems;
-@synthesize selectedItem;
 @synthesize imageLoader;
 
 - (void)viewDidLoad {
@@ -70,7 +69,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self setSelectedItem:[self itemFor:indexPath]];
 }
 
 - (id<Item>)itemFor:(NSIndexPath *)indexPath {

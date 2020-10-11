@@ -13,6 +13,7 @@
 #import "Movies.h"
 #import "Movie.h"
 #import "FavoritesManager.h"
+#import "ItemCell.h"
 
 @interface MoviesViewController ()
 
@@ -46,6 +47,8 @@
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - Delegates
+
 - (void)favoriteItem:(nonnull id<Item>)item addedOrRemoved:(BOOL)added {
     [[self tableView] reloadData];
 }
@@ -54,8 +57,10 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    ItemCell *cell = (ItemCell *)sender;
+    id<Item> selectedItem = [cell item];
     MovieDetailsViewController *detailsViewController = (MovieDetailsViewController *)[segue destinationViewController];
-    [detailsViewController initializeBy:kMovie forMovie:[[self selectedItem] identifier] withProvider:[self itemsProvider]];
+    [detailsViewController setupBy:kMovie forItem:selectedItem withProvider:[self itemsProvider]];
 }
 
 @end

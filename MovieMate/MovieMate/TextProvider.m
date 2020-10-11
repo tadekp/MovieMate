@@ -47,7 +47,7 @@
 }
 
 - (NSString *)releaseInfoFrom:(NSDate * _Nonnull)date {
-    return [NSString stringWithFormat:@"Released: %@", [[NSDateFormatter common] stringFromDate:date]];
+    return [NSString stringWithFormat:@"%@", [[NSDateFormatter common] stringFromDate:date]];
 }
 
 - (NSString *)detailsTitle {

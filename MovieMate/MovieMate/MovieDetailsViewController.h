@@ -8,14 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "Item.h"
+#import "FavoriteDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class MoviesProvider;
 
-@interface MovieDetailsViewController : UIViewController
+@interface MovieDetailsViewController : UIViewController <FavoriteDelegate>
 
-- (void)initializeBy:(ItemType)callerItemType forMovie:(NSInteger)movieIdentifier withProvider:(MoviesProvider *)moviesProvider;
+- (void)setupBy:(ItemType)callerItemType forItem:(id<Item>)item withProvider:(MoviesProvider *)moviesProvider;
 
 @end
 

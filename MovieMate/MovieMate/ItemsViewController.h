@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain, readonly) id<ItemsProvider> itemsProvider;
 
 @property (nonatomic, nonnull, retain) id<Items> currentItems;
-@property (nonatomic, nullable, weak) id<Item> selectedItem;
 
 @end
 

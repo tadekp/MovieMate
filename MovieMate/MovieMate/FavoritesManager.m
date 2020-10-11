@@ -9,6 +9,7 @@
 #import "FavoritesManager.h"
 #import "FavoriteRecord.h"
 #import "FavoritesManager+CRUD.h"
+#import "FavoritesProvider.h"
 
 @interface FavoritesManager ()
 @property (nonatomic, nonnull, strong) NSMutableSet<id<FavoriteDelegate>> *delegates;
@@ -16,6 +17,8 @@
 @end
 
 @implementation FavoritesManager
+
+@synthesize provider = _provider;
 
 + (instancetype)shared {
     static FavoritesManager *sharedInstance = nil;
@@ -69,6 +72,7 @@
 #pragma mark - Implementation details
 
 - (void)setup {
+    _provider = [[FavoritesProvider alloc] init];
     [self setDelegates:[NSMutableSet set]];
     [self setIdentifiers:[NSMutableSet set]];
     NSArray<id<Item>> *savedFavoriteItems = [self readRecords];

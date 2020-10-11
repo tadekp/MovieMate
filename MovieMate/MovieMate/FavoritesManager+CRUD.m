@@ -13,18 +13,9 @@
 @implementation FavoritesManager (CRUD)
 
 - (BOOL)createRecord:(id<Item>)item {
-    //NSManagedObjectContext *context = [[self persistentContainer] viewContext];
-    //NSEntityDescription *entity = [NSEntityDescription entityForName:@"FavoriteItem" inManagedObjectContext:context];
-    //Favorite *newFavorite = [[Favorite alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
-    
     NSManagedObjectContext *context = [self context];
     FavoriteRecord *favoriteRecord = [NSEntityDescription insertNewObjectForEntityForName:@"FavoriteItem" inManagedObjectContext:context];
     [self fillRecord:favoriteRecord withItem:item];
-    //[newFavorite setFTitle:@"aaa"];
-    //[newFavorite fillWithItem:item];
-    
-    //NSEntityDescription *entity = [NSEntityDescription insertNewObjectForEntityForName:@"FavoriteItem" inManagedObjectContext:context];
-    //[entity setManagedObjectClassName:];
     NSError *error = nil;
     if ([context save:&error]) {
         return YES;

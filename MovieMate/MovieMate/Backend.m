@@ -15,6 +15,7 @@
 
 static NSString * const baseURLString = @"https://api.themoviedb.org/3/movie/";
 static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
+static const char* queueName = "Backend-Fetcher";
 
 #pragma mark - Private properties
 
@@ -37,7 +38,7 @@ static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
 }
 
 - (void)requestNowPlayingMoviesForPage:(int)page result:(MoviesResult)result {
-    dispatch_queue_t fetchQ = dispatch_queue_create("Backend-Fetcher", NULL);
+    dispatch_queue_t fetchQ = dispatch_queue_create(queueName, NULL);
     dispatch_async(fetchQ, ^{
         [[self manager] GET:[[self nowPlayingURLForPage:page] absoluteString]
                  parameters:nil
@@ -73,9 +74,46 @@ static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
 }
 
 - (void)requestMovieDetailsOf:(NSInteger)movieIdentifier result:(MovieDetailsResult)result {
+    dispatch_queue_t fetchQ = dispatch_queue_create(queueName, NULL);
+    dispatch_async(fetchQ, ^{
+        [[self manager] GET:[[self detailsURLForMovieIdentifier:movieIdentifier] absoluteString]
+                 parameters:nil
+                    headers:nil
+                   progress:
+         ^(NSProgress * _Nonnull progress) {
+            // TODO: implement progress
+            NSLog(@"progress");
+        } success:
+         ^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+            MovieDetails *movieDetails;
+            NSString const *errorMessage;
+            NSDictionary *dictionary = [NSDictionary dictionaryFrom:responseObject];
+            if (dictionary != nil) {
+                movieDetails = [[MovieDetails alloc] initWith:dictionary];
+                errorMessage = nil;
+            } else {
+                movieDetails = nil;
+                errorMessage = @"Incorrect movie details data from backend";
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                result(movieDetails, errorMessage);
+            });
+        }
+                    failure:
+         ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                result(nil, [error localizedFailureReason]);
+            });
+        }];
+    });
 }
 
 #pragma mark - Private helpers
+
+- (NSURL * const)detailsURLForMovieIdentifier:(NSInteger)movieIdentifier {
+    NSString *urlString = [NSString stringWithFormat:@"%ld?api_key=%@", movieIdentifier, apiKey];
+    return [NSURL URLWithString:urlString relativeToURL:[self baseURL]];
+}
 
 - (NSURL * const)nowPlayingURLForPage:(int)page {
     NSString *urlString = [NSString stringWithFormat:@"now_playing?api_key=%@&page=%d", apiKey, page];
