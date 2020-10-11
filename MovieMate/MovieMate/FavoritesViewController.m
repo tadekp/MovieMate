@@ -7,14 +7,21 @@
 //
 
 #import "FavoritesViewController.h"
+#import "FavoritesProvider.h"
+#import "FavoritesManager.h"
+#import "UIStoryboardSegue+MovieDetails.h"
+#import "MoviesProvider.h"
 
 @interface FavoritesViewController ()
-
+@property (nonatomic, retain, readonly) FavoritesProvider *itemsProvider;
 @end
 
 @implementation FavoritesViewController
 
+@synthesize itemsProvider = _itemsProvider;
+
 - (void)viewDidLoad {
+    _itemsProvider = [[FavoritesManager shared] provider];
     [super viewDidLoad];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -24,27 +31,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[self tableView] reloadData];
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
 
 /*
 // Override to support conditional editing of the table view.
@@ -80,14 +70,10 @@
 }
 */
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [segue feedWithBy:kFavorite withElement:sender andProvider:[[MoviesProvider alloc] init]];
 }
-*/
 
 @end

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ItemsViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FavoritesViewController : UITableViewController
+@interface FavoritesViewController : ItemsViewController
 
 @end
 

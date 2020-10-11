@@ -26,6 +26,7 @@
 		992A21E525320F0F00B4897D /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21E425320F0F00B4897D /* MovieDetailsViewController.m */; };
 		992A21EE253228F000B4897D /* MovieDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21ED253228F000B4897D /* MovieDetails.m */; };
 		99375830252EFBCF000C98BB /* MoviesPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9937582F252EFBCF000C98BB /* MoviesPaginator.m */; };
+		99603B79253387DF00DECED2 /* UIStoryboardSegue+MovieDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 99603B78253387DF00DECED2 /* UIStoryboardSegue+MovieDetails.m */; };
 		99610B20253253C6007F65C5 /* FavoriteRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 99610B1D253253C6007F65C5 /* FavoriteRecord.m */; };
 		99610B2D2532570A007F65C5 /* Favorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 99610B2C2532570A007F65C5 /* Favorites.m */; };
 		996ACFD225319EBF006F79DF /* MoviesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 996ACFD125319EBF006F79DF /* MoviesViewController.m */; };
@@ -98,6 +99,8 @@
 		9937582E252EFBCF000C98BB /* MoviesPaginator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviesPaginator.h; sourceTree = "<group>"; };
 		9937582F252EFBCF000C98BB /* MoviesPaginator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviesPaginator.m; sourceTree = "<group>"; };
 		99375844252F3E5C000C98BB /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		99603B77253387DF00DECED2 /* UIStoryboardSegue+MovieDetails.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIStoryboardSegue+MovieDetails.h"; sourceTree = "<group>"; };
+		99603B78253387DF00DECED2 /* UIStoryboardSegue+MovieDetails.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboardSegue+MovieDetails.m"; sourceTree = "<group>"; };
 		99610B1C253253C6007F65C5 /* FavoriteRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteRecord.h; sourceTree = "<group>"; };
 		99610B1D253253C6007F65C5 /* FavoriteRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteRecord.m; sourceTree = "<group>"; };
 		99610B2B2532570A007F65C5 /* Favorites.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Favorites.h; sourceTree = "<group>"; };
@@ -255,6 +258,8 @@
 				9929B8AA25304B880036511C /* NSArray+Utils.m */,
 				992A21D12531EADD00B4897D /* NSDateFormatter+Common.h */,
 				992A21D22531EADD00B4897D /* NSDateFormatter+Common.m */,
+				99603B77253387DF00DECED2 /* UIStoryboardSegue+MovieDetails.h */,
+				99603B78253387DF00DECED2 /* UIStoryboardSegue+MovieDetails.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -592,6 +597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99603B79253387DF00DECED2 /* UIStoryboardSegue+MovieDetails.m in Sources */,
 				992A21E525320F0F00B4897D /* MovieDetailsViewController.m in Sources */,
 				99B82EDF252FA5D500119B4C /* NSDictionary+Utils.m in Sources */,
 				991214D4252CBC8C006F6271 /* AppDelegate.m in Sources */,

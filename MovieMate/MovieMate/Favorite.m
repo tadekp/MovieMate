@@ -27,4 +27,14 @@
     return self;
 }
 
+- (instancetype)initWithItem:(id<Item>)item {
+    self = [super init];
+    _identifier = [item identifier];
+    _title = [item title];
+    _releaseDate = [item releaseDate];
+    _voteAverage = [item voteAverage];
+    _imagePath = [item imagePath];
+    return self;
+}
+
 @end

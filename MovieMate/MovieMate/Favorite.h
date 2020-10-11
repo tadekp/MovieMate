@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSString *imagePath;
 
 - (instancetype)initWithCoreDataRecord:(nonnull FavoriteRecord *)record;
+- (instancetype)initWithItem:(id<Item>)item;
 
 @end
 

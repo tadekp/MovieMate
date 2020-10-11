@@ -48,6 +48,7 @@
         if (![self isFavorite:item]) {
             if ([self createRecord:item]) {
                 [[self identifiers] addObject:number];
+                [[self provider] add:item];
                 [self broadcastInfoAbout:item asAdded:YES];
             } else {
                 // TODO: implement failure in DB record creation
@@ -57,6 +58,7 @@
         if ([self isFavorite:item]) {
             if ([self deleteRecord:item]) {
                 [[self identifiers] removeObject:number];
+                [[self provider] remove:item];
                 [self broadcastInfoAbout:item asAdded:NO];
             } else {
                 // TODO: implement failure in DB record deletion
@@ -78,6 +80,7 @@
     NSArray<id<Item>> *savedFavoriteItems = [self readRecords];
     for (id<Item> item in savedFavoriteItems) {
         [[self identifiers] addObject:[NSNumber numberWithInteger:[item identifier]]];
+        [[self provider] add:item];
     }
 }
 
@@ -102,7 +105,6 @@
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.
                     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    
                     /*
                      Typical reasons for an error here include:
                      * The parent directory does not exist, cannot be created, or disallows writing.
@@ -117,7 +119,6 @@
             }];
         }
     }
-    
     return _persistentContainer;
 }
 

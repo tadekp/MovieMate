@@ -10,11 +10,10 @@
 #import "TextProvider.h"
 #import "ItemCell.h"
 #import "ImageLoader.h"
+#import "FavoritesManager.h"
 
 @interface ItemsViewController ()
-
 @property (nonatomic, nonnull, strong) ImageLoader *imageLoader;
-
 @end
 
 @implementation ItemsViewController
@@ -25,12 +24,14 @@
 - (void)viewDidLoad {
     self.currentItems = [[self itemsProvider] createEmpty];
     [super viewDidLoad];
+    self.currentPage = 0;
+    //[[self tableView] registerClass:[ItemCell class] forCellReuseIdentifier:[ItemCell identifier]];
     self.imageLoader = [[ImageLoader alloc] init];
     self.navigationItem.title = [[TextProvider shared] titleFor:[self itemType]];
-    [[self itemsProvider] loadItemsForPage:0 result:^(id<Items> _Nullable const loadedItems) {
-        self->currentItems = loadedItems;
-        [[self tableView] reloadData];
-    }];
+//    [[self itemsProvider] loadItemsForPage:[self currentPage] result:^(id<Items> _Nullable const loadedItems) {
+//        self->currentItems = loadedItems;
+//        [[self tableView] reloadData];
+//    }];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -41,11 +42,29 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[self tableView] reloadData];
+    //[[self tableView] reloadData];
+    [[self itemsProvider] loadItemsForPage:[self currentPage] result:^(id<Items> _Nullable const loadedItems) {
+        self->currentItems = loadedItems;
+        [[self tableView] reloadData];
+    }];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[FavoritesManager shared] addDelegate:self];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[FavoritesManager shared] removeDelegate:self];
+    [super viewWillDisappear:animated];
 }
 
 - (ItemType)itemType {
     return [[self itemsProvider] itemType];
+}
+
+- (void)favoriteItem:(nonnull id<Item>)item addedOrRemoved:(BOOL)added {
+    [[self tableView] reloadData];
 }
 
 #pragma mark - Table view data source
@@ -106,16 +125,6 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 */
 

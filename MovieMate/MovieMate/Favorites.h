@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Item.h"
 #import "Items.h"
 #import "Favorite.h"
 
@@ -18,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSInteger totalPages;
 @property (nonatomic, readonly) NSInteger totalResults;
 @property (nonatomic, strong, readonly) NSArray<Favorite *> *items;
+
+- (instancetype)initWith:(nonnull NSArray<id<Item>> *)items;
 
 @end
 

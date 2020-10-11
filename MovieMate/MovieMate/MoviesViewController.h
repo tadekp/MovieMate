@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <NMPaginator/NMPaginator.h>
 #import "ItemsViewController.h"
-#import "FavoriteDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MoviesViewController : ItemsViewController<NMPaginatorDelegate, FavoriteDelegate>
+@interface MoviesViewController : ItemsViewController<NMPaginatorDelegate>
 
 @end
 

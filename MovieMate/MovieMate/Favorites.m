@@ -15,6 +15,22 @@
 @synthesize totalResults = _totalResults;
 @synthesize items = _items;
 
+- (instancetype)initWith:(NSArray<id<Item>> *)items {
+    self = [super init];
+    _page = 0;
+    _totalPages = 1;
+    _totalResults = [items count];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"releaseDate" ascending:NO];
+    NSArray *sortedItems = [items sortedArrayUsingDescriptors:@[sortDescriptor]];
+    NSMutableArray *favoriteItems = [NSMutableArray arrayWithCapacity:[sortedItems count]];
+    for (id item in sortedItems) {
+        Favorite *favorite = [[Favorite alloc] initWithItem:(id<Item>)item];
+        [favoriteItems addObject:favorite];
+    }
+    _items = favoriteItems;
+    return self;
+}
+
 - (NSInteger)count {
     return [[self items] count];
 }
