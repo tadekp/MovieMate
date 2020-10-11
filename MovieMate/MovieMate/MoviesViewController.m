@@ -12,6 +12,7 @@
 #import "Types.h"
 #import "Movies.h"
 #import "Movie.h"
+#import "FavoritesManager.h"
 
 @interface MoviesViewController ()
 
@@ -35,39 +36,19 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[FavoritesManager shared] addDelegate:self];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)viewWillDisappear:(BOOL)animated {
+    [[FavoritesManager shared] removeDelegate:self];
+    [super viewWillDisappear:animated];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)favoriteItem:(nonnull id<Item>)item addedOrRemoved:(BOOL)added {
+    [[self tableView] reloadData];
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Navigation
 

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "Item.h"
+#import "FavoriteDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shared;
 
+- (void)addDelegate:(nonnull id<FavoriteDelegate>)delegate;
+- (void)removeDelegate:(nonnull id<FavoriteDelegate>)delegate;
 - (BOOL)isFavorite:(id<Item>)item;
 - (void)setFavorite:(id<Item>)item favorite:(BOOL)yes;
 - (void)toggle:(id<Item>)item;

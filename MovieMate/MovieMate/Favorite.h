@@ -1,28 +1,29 @@
 //
-//  Favorite+CoreDataClass.h
-//  
+//  Favorite.h
+//  MovieMate
 //
-//  Created by Tadeusz Purtak on 10/10/2020.
-//
+//  Created by Tadeusz Purtak on 11/10/2020.
+//  Copyright © 2020 Litterae. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 #import "Item.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Favorite : NSManagedObject <Item>
+@class FavoriteRecord;
 
-+ (NSFetchRequest<Favorite *> *)fetchRequest;
+@interface Favorite : NSObject <Item>
 
-@property (nonatomic) int32_t fIdentifier;
-@property (nullable, nonatomic, copy) NSString *fImagePath;
-@property (nullable, nonatomic, copy) NSDate *fReleaseDate;
-@property (nullable, nonatomic, copy) NSString *fTitle;
-@property (nonatomic) float fVoteAverage;
+#pragma mark - Item properties
+@property (nonatomic, readonly) ItemType itemType;
+@property (nonatomic, readonly) NSInteger identifier;
+@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, strong, readonly) NSDate *releaseDate;
+@property (nonatomic, strong, readonly) NSNumber *voteAverage;
+@property (nonatomic, strong, readonly) NSString *imagePath;
 
-- (void)fillWithItem:(id<Item>)item;
+- (instancetype)initWithCoreDataRecord:(nonnull FavoriteRecord *)record;
 
 @end
 

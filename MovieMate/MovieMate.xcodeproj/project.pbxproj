@@ -26,12 +26,14 @@
 		992A21E525320F0F00B4897D /* MovieDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21E425320F0F00B4897D /* MovieDetailsViewController.m */; };
 		992A21EE253228F000B4897D /* MovieDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 992A21ED253228F000B4897D /* MovieDetails.m */; };
 		99375830252EFBCF000C98BB /* MoviesPaginator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9937582F252EFBCF000C98BB /* MoviesPaginator.m */; };
-		99610B20253253C6007F65C5 /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 99610B1D253253C6007F65C5 /* Favorite.m */; };
+		99610B20253253C6007F65C5 /* FavoriteRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 99610B1D253253C6007F65C5 /* FavoriteRecord.m */; };
 		99610B2D2532570A007F65C5 /* Favorites.m in Sources */ = {isa = PBXBuildFile; fileRef = 99610B2C2532570A007F65C5 /* Favorites.m */; };
 		996ACFD225319EBF006F79DF /* MoviesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 996ACFD125319EBF006F79DF /* MoviesViewController.m */; };
 		996ACFE62531A2BF006F79DF /* FavoritesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 996ACFE52531A2BF006F79DF /* FavoritesViewController.m */; };
 		996ACFF22531A533006F79DF /* TextProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 996ACFF12531A533006F79DF /* TextProvider.m */; };
 		996AD0082531A9A4006F79DF /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 996AD0072531A9A4006F79DF /* ItemsViewController.m */; };
+		99914EE12532E56B006903B1 /* Favorite.m in Sources */ = {isa = PBXBuildFile; fileRef = 99914EE02532E56B006903B1 /* Favorite.m */; };
+		99914EEA2532E724006903B1 /* FavoritesManager+CRUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 99914EE92532E724006903B1 /* FavoritesManager+CRUD.m */; };
 		99B82EDF252FA5D500119B4C /* NSDictionary+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 99B82EDE252FA5D500119B4C /* NSDictionary+Utils.m */; };
 		99C06713252E4AF60073ECA9 /* Backend.m in Sources */ = {isa = PBXBuildFile; fileRef = 99C06712252E4AF60073ECA9 /* Backend.m */; };
 		99C0671D252E541E0073ECA9 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = 99C0671C252E541E0073ECA9 /* Movie.m */; };
@@ -96,8 +98,8 @@
 		9937582E252EFBCF000C98BB /* MoviesPaginator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviesPaginator.h; sourceTree = "<group>"; };
 		9937582F252EFBCF000C98BB /* MoviesPaginator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviesPaginator.m; sourceTree = "<group>"; };
 		99375844252F3E5C000C98BB /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
-		99610B1C253253C6007F65C5 /* Favorite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
-		99610B1D253253C6007F65C5 /* Favorite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
+		99610B1C253253C6007F65C5 /* FavoriteRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteRecord.h; sourceTree = "<group>"; };
+		99610B1D253253C6007F65C5 /* FavoriteRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteRecord.m; sourceTree = "<group>"; };
 		99610B2B2532570A007F65C5 /* Favorites.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Favorites.h; sourceTree = "<group>"; };
 		99610B2C2532570A007F65C5 /* Favorites.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Favorites.m; sourceTree = "<group>"; };
 		996ACFD025319EBF006F79DF /* MoviesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviesViewController.h; sourceTree = "<group>"; };
@@ -111,6 +113,11 @@
 		996AD0102531B478006F79DF /* Item.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		996AD0142531B8AC006F79DF /* Items.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Items.h; sourceTree = "<group>"; };
 		996AD0182531B9B6006F79DF /* ItemsProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ItemsProvider.h; sourceTree = "<group>"; };
+		99914EDF2532E56B006903B1 /* Favorite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Favorite.h; sourceTree = "<group>"; };
+		99914EE02532E56B006903B1 /* Favorite.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Favorite.m; sourceTree = "<group>"; };
+		99914EE82532E724006903B1 /* FavoritesManager+CRUD.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FavoritesManager+CRUD.h"; sourceTree = "<group>"; };
+		99914EE92532E724006903B1 /* FavoritesManager+CRUD.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "FavoritesManager+CRUD.m"; sourceTree = "<group>"; };
+		99914F022533203A006903B1 /* FavoriteDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FavoriteDelegate.h; sourceTree = "<group>"; };
 		99B82EDD252FA5D500119B4C /* NSDictionary+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Utils.h"; sourceTree = "<group>"; };
 		99B82EDE252FA5D500119B4C /* NSDictionary+Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Utils.m"; sourceTree = "<group>"; };
 		99C06712252E4AF60073ECA9 /* Backend.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Backend.m; sourceTree = "<group>"; };
@@ -272,12 +279,17 @@
 		996AD01A2531B9EC006F79DF /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				99610B1C253253C6007F65C5 /* Favorite.h */,
-				99610B1D253253C6007F65C5 /* Favorite.m */,
+				99914EDF2532E56B006903B1 /* Favorite.h */,
+				99914EE02532E56B006903B1 /* Favorite.m */,
+				99610B1C253253C6007F65C5 /* FavoriteRecord.h */,
+				99610B1D253253C6007F65C5 /* FavoriteRecord.m */,
 				99610B2B2532570A007F65C5 /* Favorites.h */,
 				99610B2C2532570A007F65C5 /* Favorites.m */,
+				99914F022533203A006903B1 /* FavoriteDelegate.h */,
 				992A21D72531F2FD00B4897D /* FavoritesManager.h */,
 				992A21D82531F2FD00B4897D /* FavoritesManager.m */,
+				99914EE82532E724006903B1 /* FavoritesManager+CRUD.h */,
+				99914EE92532E724006903B1 /* FavoritesManager+CRUD.m */,
 				992A21DD2531F9A900B4897D /* FavoritesProvider.h */,
 				992A21DE2531F9A900B4897D /* FavoritesProvider.m */,
 			);
@@ -289,10 +301,10 @@
 			children = (
 				996ACFD025319EBF006F79DF /* MoviesViewController.h */,
 				996ACFD125319EBF006F79DF /* MoviesViewController.m */,
-				9937582E252EFBCF000C98BB /* MoviesPaginator.h */,
-				9937582F252EFBCF000C98BB /* MoviesPaginator.m */,
 				992A21E325320F0F00B4897D /* MovieDetailsViewController.h */,
 				992A21E425320F0F00B4897D /* MovieDetailsViewController.m */,
+				9937582E252EFBCF000C98BB /* MoviesPaginator.h */,
+				9937582F252EFBCF000C98BB /* MoviesPaginator.m */,
 			);
 			name = Movies;
 			sourceTree = "<group>";
@@ -583,6 +595,7 @@
 				992A21E525320F0F00B4897D /* MovieDetailsViewController.m in Sources */,
 				99B82EDF252FA5D500119B4C /* NSDictionary+Utils.m in Sources */,
 				991214D4252CBC8C006F6271 /* AppDelegate.m in Sources */,
+				99914EEA2532E724006903B1 /* FavoritesManager+CRUD.m in Sources */,
 				99375830252EFBCF000C98BB /* MoviesPaginator.m in Sources */,
 				992A21C22531BAAA00B4897D /* MoviesProvider.m in Sources */,
 				992A21CC2531D07E00B4897D /* ItemCell.m in Sources */,
@@ -596,11 +609,12 @@
 				991214E3252CBC8C006F6271 /* MovieMate.xcdatamodeld in Sources */,
 				996ACFF22531A533006F79DF /* TextProvider.m in Sources */,
 				992A21D32531EADD00B4897D /* NSDateFormatter+Common.m in Sources */,
-				99610B20253253C6007F65C5 /* Favorite.m in Sources */,
+				99610B20253253C6007F65C5 /* FavoriteRecord.m in Sources */,
 				996AD0082531A9A4006F79DF /* ItemsViewController.m in Sources */,
 				99C06713252E4AF60073ECA9 /* Backend.m in Sources */,
 				99C06723252E54B80073ECA9 /* Movies.m in Sources */,
 				996ACFD225319EBF006F79DF /* MoviesViewController.m in Sources */,
+				99914EE12532E56B006903B1 /* Favorite.m in Sources */,
 				991214EB252CBC8F006F6271 /* main.m in Sources */,
 				992A21DF2531F9A900B4897D /* FavoritesProvider.m in Sources */,
 			);

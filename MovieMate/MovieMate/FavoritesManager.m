@@ -7,12 +7,12 @@
 //
 
 #import "FavoritesManager.h"
-#import "Favorite.h"
+#import "FavoriteRecord.h"
+#import "FavoritesManager+CRUD.h"
 
 @interface FavoritesManager ()
-
-@property (nonatomic, nonnull) NSMutableSet<NSNumber *> *identifiers;
-
+@property (nonatomic, nonnull, strong) NSMutableSet<id<FavoriteDelegate>> *delegates;
+@property (nonatomic, nonnull, strong) NSMutableSet<NSNumber *> *identifiers;
 @end
 
 @implementation FavoritesManager
@@ -22,8 +22,17 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^ {
         sharedInstance = [[FavoritesManager alloc] init];
+        [sharedInstance setup];
     });
     return sharedInstance;
+}
+
+- (void)addDelegate:(id<FavoriteDelegate>)delegate {
+    [[self delegates] addObject:delegate];
+}
+
+- (void)removeDelegate:(id<FavoriteDelegate>)delegate {
+    [[self delegates] removeObject:delegate];
 }
 
 - (BOOL)isFavorite:(id<Item>)item {
@@ -34,28 +43,46 @@
     NSNumber *number = [NSNumber numberWithInteger:[item identifier]];
     if (yes) {
         if (![self isFavorite:item]) {
-            [[self identifiers] addObject:number];
-            NSManagedObjectContext *context = [[self persistentContainer] viewContext];
-            NSEntityDescription *entity = [NSEntityDescription entityForName:@"FavoriteItem" inManagedObjectContext:context];
-            //Favorite *newFavorite = [[Favorite alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
-            Favorite *newFavorite = (Favorite *) [NSEntityDescription insertNewObjectForEntityForName:@"FavoriteItem" inManagedObjectContext:context];
-            [newFavorite setFTitle:@"aaa"];
-            [newFavorite fillWithItem:item];
-            //NSEntityDescription *entity = [NSEntityDescription insertNewObjectForEntityForName:@"FavoriteItem" inManagedObjectContext:context];
-            //[entity setManagedObjectClassName:];
-            NSError *error;
-            [context save:&error];
-            NSLog([error localizedDescription]);
+            if ([self createRecord:item]) {
+                [[self identifiers] addObject:number];
+                [self broadcastInfoAbout:item asAdded:YES];
+            } else {
+                // TODO: implement failure in DB record creation
+            }
         }
     } else {
         if ([self isFavorite:item]) {
-            [[self identifiers] removeObject:number];
+            if ([self deleteRecord:item]) {
+                [[self identifiers] removeObject:number];
+                [self broadcastInfoAbout:item asAdded:NO];
+            } else {
+                // TODO: implement failure in DB record deletion
+            }
         }
     }
 }
 
 - (void)toggle:(id<Item>)item {
     [self setFavorite:item favorite:![self isFavorite:item]];
+}
+
+#pragma mark - Implementation details
+
+- (void)setup {
+    [self setDelegates:[NSMutableSet set]];
+    [self setIdentifiers:[NSMutableSet set]];
+    NSArray<id<Item>> *savedFavoriteItems = [self readRecords];
+    for (id<Item> item in savedFavoriteItems) {
+        [[self identifiers] addObject:[NSNumber numberWithInteger:[item identifier]]];
+    }
+}
+
+- (void)broadcastInfoAbout:(id<Item>)item asAdded:(BOOL)added {
+    for (id<FavoriteDelegate> delegate in [self delegates]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [delegate favoriteItem:item addedOrRemoved:added];
+        });
+    }
 }
 
 #pragma mark - Core Data stack
@@ -89,8 +116,6 @@
     
     return _persistentContainer;
 }
-
-#pragma mark - Core Data Saving support
 
 - (void)saveContext {
     NSManagedObjectContext *context = self.persistentContainer.viewContext;
