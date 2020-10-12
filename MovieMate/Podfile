@@ -7,7 +7,6 @@ target 'MovieMate' do
 
   # Pods for MovieMate
   pod 'AFNetworking'
-  pod 'NMPaginator'
 
   target 'MovieMateTests' do
     inherit! :search_paths

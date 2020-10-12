@@ -14,6 +14,7 @@
 #import "MovieDetails.h"
 
 static NSString * const baseURLString = @"https://api.themoviedb.org/3/movie/";
+static NSString * const baseSearchURLString = @"https://api.themoviedb.org/3/search/";
 static NSString * const apiKey = @"3e335cb24512bbdd8b2535248dc9a143";
 static const char* queueName = "Backend-Fetcher";
 
@@ -46,12 +47,46 @@ static const char* queueName = "Backend-Fetcher";
                    progress:
          ^(NSProgress * _Nonnull downloadProgress) {
             // TODO: implement progress
-            NSLog(@"progress");
         }
                     success:
          ^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
-            Movies const *movies;
-            NSString const *errorMessage;
+            Movies *movies;
+            NSString *errorMessage;
+            NSDictionary *dictionary = [NSDictionary dictionaryFrom:responseObject];
+            if (dictionary != nil) {
+                movies = [[Movies alloc] initWith:dictionary];
+                errorMessage = nil;
+            } else {
+                movies = nil;
+                errorMessage = @"Incorrect movies data from backend";
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                result(movies, errorMessage);
+            });
+        }
+                    failure:
+         ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                result(nil, [error localizedFailureReason]);
+            });
+        }];
+    });
+}
+
+- (void)requestSearch:(NSString *)text atPage:(int)page result:(MoviesResult)result {
+    dispatch_queue_t fetchQ = dispatch_queue_create(queueName, NULL);
+    dispatch_async(fetchQ, ^{
+        [[self manager] GET:[[self searchURLForQuery:text onPage:page] absoluteString]
+                 parameters:nil
+                    headers:nil
+                   progress:
+         ^(NSProgress * _Nonnull downloadProgress) {
+            // TODO: implement progress
+        }
+                    success:
+         ^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
+            Movies *movies;
+            NSString *errorMessage;
             NSDictionary *dictionary = [NSDictionary dictionaryFrom:responseObject];
             if (dictionary != nil) {
                 movies = [[Movies alloc] initWith:dictionary];
@@ -82,11 +117,10 @@ static const char* queueName = "Backend-Fetcher";
                    progress:
          ^(NSProgress * _Nonnull progress) {
             // TODO: implement progress
-            NSLog(@"progress");
         } success:
          ^(NSURLSessionDataTask * _Nonnull task, id _Nullable responseObject) {
             MovieDetails *movieDetails;
-            NSString const *errorMessage;
+            NSString *errorMessage;
             NSDictionary *dictionary = [NSDictionary dictionaryFrom:responseObject];
             if (dictionary != nil) {
                 movieDetails = [[MovieDetails alloc] initWith:dictionary];
@@ -113,6 +147,12 @@ static const char* queueName = "Backend-Fetcher";
 - (NSURL * const)detailsURLForMovieIdentifier:(NSInteger)movieIdentifier {
     NSString *urlString = [NSString stringWithFormat:@"%ld?api_key=%@", movieIdentifier, apiKey];
     return [NSURL URLWithString:urlString relativeToURL:[self baseURL]];
+}
+
+- (NSURL * const)searchURLForQuery:(NSString *)query onPage:(int)page {
+    NSString *encodedQuery = [query stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *urlString = [NSString stringWithFormat:@"movie?api_key=%1$@&page=%2$@&query=%3$@", apiKey, [NSString stringWithFormat:@"%d", page], encodedQuery];
+    return [NSURL URLWithString:urlString relativeToURL:[NSURL URLWithString:baseSearchURLString]];
 }
 
 - (NSURL * const)nowPlayingURLForPage:(int)page {

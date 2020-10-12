@@ -12,7 +12,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class Backend;
+
 @interface MoviesProvider : NSObject <ItemsProvider>
+
+@property (nonatomic, strong, readonly) Backend const* backend;
 
 - (instancetype)init;
 

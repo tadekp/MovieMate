@@ -14,21 +14,17 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - NMPaginator (1.0.0)
 
 DEPENDENCIES:
   - AFNetworking
-  - NMPaginator
 
 SPEC REPOS:
   trunk:
     - AFNetworking
-    - NMPaginator
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  NMPaginator: cfdce30d71807c8d24f5c885505348c51c05f8d2
 
-PODFILE CHECKSUM: 66cac3172ef2a95e98db247da1373c3bd5a2f143
+PODFILE CHECKSUM: 61584aa88f80ba10b81b2294df636c4b12f2757e
 
 COCOAPODS: 1.8.3

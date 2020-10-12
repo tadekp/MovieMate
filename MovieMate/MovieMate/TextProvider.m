@@ -54,4 +54,8 @@
     return @"Movie Details";
 }
 
+- (NSString *)searchPlaceholder {
+    return @"Search Movies by Title...";
+}
+
 @end

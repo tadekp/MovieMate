@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)shortTitleFor:(ItemType)itemType;
 - (NSString *)releaseInfoFrom:(NSDate * _Nonnull)date;
 - (NSString *)detailsTitle;
+- (NSString *)searchPlaceholder;
 
 @end
 

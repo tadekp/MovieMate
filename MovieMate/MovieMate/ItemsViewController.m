@@ -11,42 +11,30 @@
 #import "ItemCell.h"
 #import "ImageLoader.h"
 #import "FavoritesManager.h"
+#import "Items.h"
 
 @interface ItemsViewController ()
 @property (nonatomic, nonnull, strong) ImageLoader *imageLoader;
+@property (nonatomic, nonnull, strong) NSMutableArray<id<Item>> *items;
 @end
 
 @implementation ItemsViewController
 
-@synthesize currentItems;
 @synthesize imageLoader;
 
 - (void)viewDidLoad {
-    self.currentItems = [[self itemsProvider] createEmpty];
     [super viewDidLoad];
+    self.items = [NSMutableArray array];
     self.currentPage = 0;
-    //[[self tableView] registerClass:[ItemCell class] forCellReuseIdentifier:[ItemCell identifier]];
     self.imageLoader = [[ImageLoader alloc] init];
     self.navigationItem.title = [[TextProvider shared] titleFor:[self itemType]];
-//    [[self itemsProvider] loadItemsForPage:[self currentPage] result:^(id<Items> _Nullable const loadedItems) {
-//        self->currentItems = loadedItems;
-//        [[self tableView] reloadData];
-//    }];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //[[self tableView] reloadData];
-    [[self itemsProvider] loadItemsForPage:[self currentPage] result:^(id<Items> _Nullable const loadedItems) {
-        self->currentItems = loadedItems;
-        [[self tableView] reloadData];
-    }];
+    [self setCurrentPage:0];
+    [self flush];
+    [self reload];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -57,6 +45,18 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [[FavoritesManager shared] removeDelegate:self];
     [super viewWillDisappear:animated];
+}
+
+- (void)reload {
+    [[self itemsProvider] loadItemsForPage:[self currentPage] result:^(id<Items> _Nullable const loadedItems) {
+        [[self items] addObjectsFromArray:[loadedItems items]];
+        [[self tableView] reloadData];
+    }];
+}
+
+- (void)flush {
+    [[self items] removeAllObjects];
+    [[self tableView] reloadData];
 }
 
 - (ItemType)itemType {
@@ -74,7 +74,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self currentItems] count];
+    return [[self items] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,49 +83,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ItemCell *cell = (ItemCell *)[tableView dequeueReusableCellWithIdentifier:[ItemCell identifier] forIndexPath:indexPath];
-    [cell setupFor:[self itemFor:indexPath] havingFavoriteMark:[self itemType] != kFavorite withImageLoader:[self imageLoader]];
+    [cell setupFor:[self itemAt:indexPath] havingFavoriteMark:[self itemType] != kFavorite withImageLoader:[self imageLoader]];
+    if ([self itemType] == kMovie && [indexPath row] == [[self items] count] - 1) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setCurrentPage:[self currentPage] + 1];
+            [self reload];
+        });
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
-- (id<Item>)itemFor:(NSIndexPath *)indexPath {
-    return [[self currentItems] itemAt:[indexPath row]];
+- (id<Item>)itemAt:(NSIndexPath *)indexPath {
+    return [[self items] objectAtIndex:[indexPath row]];
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 @end

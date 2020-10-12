@@ -16,6 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-typedef void (^MovieDetailsResult)(MovieDetails const* _Nullable, NSString * _Nullable);
+typedef void (^MovieDetailsResult)(MovieDetails * _Nullable, NSString * _Nullable);
 
 NS_ASSUME_NONNULL_END

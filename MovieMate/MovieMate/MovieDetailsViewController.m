@@ -40,7 +40,6 @@ static UIImage *_starOFF = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitle:[[TextProvider shared] detailsTitle]];
     [[[self navigationItem] leftBarButtonItem] setTitle:[[TextProvider shared] shortTitleFor:[self callerItemType]]];
     [self setImageLoader:[[ImageLoader alloc] init]];
 }
@@ -62,7 +61,7 @@ static UIImage *_starOFF = nil;
     } else {
         self.moviesProvider = [[MoviesProvider alloc] init];
     }
-    [self.moviesProvider loadMovieDetailsFor:[item identifier] result:^(const MovieDetails * _Nullable movieDetails, NSString * _Nullable errorMessage) {
+    [self.moviesProvider loadMovieDetailsFor:[item identifier] result:^(MovieDetails * _Nullable movieDetails, NSString * _Nullable errorMessage) {
         NSLog(@"%@", [movieDetails overview]);
         [self setMovieDetails:movieDetails];
     }];

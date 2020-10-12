@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Item.h"
-#import "Items.h"
 #import "ItemsProvider.h"
 #import "FavoriteDelegate.h"
 
@@ -20,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain, readonly) id<ItemsProvider> itemsProvider;
 @property (nonatomic) NSInteger currentPage;
 
-@property (nonatomic, nonnull, retain) id<Items> currentItems;
+- (void)reload;
+- (void)flush;
+- (id<Item>)itemAt:(NSIndexPath *)indexPath;
 
 @end
 

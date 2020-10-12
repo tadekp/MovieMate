@@ -19,8 +19,9 @@
 @interface Backend : NSObject
 
 - (instancetype _Nonnull)init;
-- (void)requestNowPlayingMoviesForPage:(int)page result:(MoviesResult _Nonnull)result;
-- (void)requestMovieDetailsOf:(NSInteger)movieIdentifier result:(MovieDetailsResult _Nonnull)result;
+- (void)requestNowPlayingMoviesForPage:(int)page result:(nonnull MoviesResult)result;
+- (void)requestSearch:(nonnull NSString *)text atPage:(int)page result:(nonnull MoviesResult)result;
+- (void)requestMovieDetailsOf:(NSInteger)movieIdentifier result:(nonnull MovieDetailsResult)result;
 
 @end
 

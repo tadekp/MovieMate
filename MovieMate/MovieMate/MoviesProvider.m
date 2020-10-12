@@ -11,19 +11,17 @@
 #import "Backend.h"
 
 @interface MoviesProvider ()
-
-@property (nonatomic, strong) Backend const* backend;
-
 @end
 
 @implementation MoviesProvider
 
 @synthesize itemType = _itemType;
 @synthesize errorMessage = _errorMessage;
+@synthesize backend = _backend;
 
 - (instancetype)init {
     self = [super init];
-    self.backend = [[Backend alloc] init];
+    _backend = [[Backend alloc] init];
     _itemType = kMovie;
     return self;
 }
@@ -32,10 +30,6 @@
     [self.backend requestNowPlayingMoviesForPage:(int)page + 1
                                           result:
      ^(const Movies * _Nullable movies, NSString * _Nullable errorMessage) {
-        Movie *movie = [[movies items] objectAtIndex:0];
-        if (movies != nil) {
-            NSLog(@"Movies loaded");
-        }
         self->_errorMessage = errorMessage;
         result(movies);
     }];
@@ -44,7 +38,7 @@
 - (void)loadMovieDetailsFor:(NSInteger)movieIdentifier result:(MovieDetailsResult)result {
     [self.backend requestMovieDetailsOf:movieIdentifier
                                  result:
-     ^(const MovieDetails * _Nullable movieDetails, NSString * _Nullable errorMessage) {
+     ^(MovieDetails * _Nullable movieDetails, NSString * _Nullable errorMessage) {
         self->_errorMessage = errorMessage;
         result(movieDetails, errorMessage);
     }];
